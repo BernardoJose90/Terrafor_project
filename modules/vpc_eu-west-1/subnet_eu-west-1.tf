@@ -8,6 +8,7 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
   tags = {
     Name = "${var.project}-Public-Subnet-${var.env}"
+    Environment = terraform.workspace
   }
 }
 
@@ -20,5 +21,6 @@ resource "aws_subnet" "private" {
   availability_zone = data.aws_availability_zones.available.names[0]
   tags = {
     Name = "${var.project}-Private-Subnet${count.index}-${var.env}"
+    Environment = terraform.workspace
   }
 }

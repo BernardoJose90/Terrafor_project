@@ -22,4 +22,8 @@ resource "aws_security_group" "jenkins_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  tags = {
+  Name = "${var.project}-Jenkins-SG"
+  Environment = terraform.workspace
+  }
 }
