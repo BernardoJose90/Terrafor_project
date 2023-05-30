@@ -9,7 +9,8 @@ resource "aws_vpc" "testvpc" {
   enable_dns_hostnames = true
   enable_dns_support   = true
   tags = {
-    Name = "${var.project}-vpc-${var.env}"
+    Name = "${var.project}-vpc"
+    Environment = terraform.workspace
   }
 
 }

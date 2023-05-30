@@ -14,10 +14,8 @@ resource "aws_subnet" "public" {
 
 /* Creates a privatesubnetss  */
 resource "aws_subnet" "private" {
-  count = length(var.private_subnets)
-
   vpc_id            = aws_vpc.testvpc.id
-  cidr_block        = element(concat(var.private_subnets, [""]), count.index)
+  cidr_block        = var.private_subnets
   availability_zone = data.aws_availability_zones.available.names[0]
   tags = {
     Name = "${var.project}-Private-Subnet"

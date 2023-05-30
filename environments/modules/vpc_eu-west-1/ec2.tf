@@ -40,9 +40,7 @@ resource "aws_instance" "jenkins_instance" {
   }
 
   tags = {
-    Name = "jenkins-instance"
+    Name = "${var.project}-Jenkins"
     Environment = terraform.workspace
   }
-
-  depends_on = [ aws_vpc.testvpc ]
 }
