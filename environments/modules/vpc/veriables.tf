@@ -17,3 +17,8 @@ variable "private_subnets" {
   description = "List of private subnets for the VPC"
   type        = string
 }
+
+variable "region" {
+  type = string
+  description = "Region"
+}
