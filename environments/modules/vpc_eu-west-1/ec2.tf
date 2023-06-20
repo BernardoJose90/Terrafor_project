@@ -43,7 +43,5 @@ resource "aws_instance" "jenkins_instance" {
     Name = "${var.project}-Jenkins"
     Environment = terraform.workspace
   }
-  lifecycle {
-    prevent_destroy = true
-  }
+
 }
