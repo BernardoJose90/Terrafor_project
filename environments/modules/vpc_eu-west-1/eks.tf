@@ -1,13 +1,9 @@
-provider "aws" {
-  region = "us-west-2"  # Replace with your desired AWS region
-}
-
 resource "aws_eks_cluster" "example" {
   name     = "my-cluster"
   role_arn = aws_iam_role.cluster.arn
 
   vpc_config {
-    subnet_ids = aws_subnet.public.id   # Replace with your subnet IDs
+    subnet_ids = aws_subnet.public.id   
   }
 
   tags = {

@@ -1,4 +1,4 @@
-
+/**/
 resource "aws_instance" "jenkins_instance" {
   ami                    = "ami-0b752bf1df193a6c4"  # Update with the desired Amazon Machine Image (AMI) ID
   instance_type          = "t2.micro"        # Update with the desired instance type
@@ -14,7 +14,7 @@ resource "aws_instance" "jenkins_instance" {
               sudo amazon-linux-extras install java-openjdk11
 
               # Install Jenkins
-              sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+              sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
               sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
               sudo yum install -y jenkins
 
