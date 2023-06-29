@@ -7,7 +7,7 @@ resource "aws_eks_cluster" "example" {
   }
 
   tags = {
-    Environment = "production"
+    Environment = terraform.workspace
   }
 }
 
