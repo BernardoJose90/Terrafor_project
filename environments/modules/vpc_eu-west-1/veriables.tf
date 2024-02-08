@@ -24,7 +24,7 @@ variable "private_subnets" {
 variable "instance_type" {
   type = map(any)
   default = {
-    "developement" = "t2.micro"
+    "development" = "t2.micro"
     "production"   = "t2.micro"
   }
 }
