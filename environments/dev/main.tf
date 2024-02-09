@@ -10,6 +10,6 @@ module "create_pvc" {
 */
 
 module "create_pvc" {
-  source = "../modules/vpc_eu-west-1"
+  source     = "../modules/vpc_eu-west-1"
   vpc_region = "eu-west-1"
 }
