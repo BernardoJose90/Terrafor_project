@@ -1,8 +1,8 @@
 /**/
 resource "aws_instance" "jenkins_instance" {
-  ami                    = "ami-0b752bf1df193a6c4"  # Update with the desired Amazon Machine Image (AMI) ID
-  instance_type          = "t2.micro"        # Update with the desired instance type
-  key_name               = "jenkins_server"   # Update with the name of your key pair
+  ami                    = "ami-0b752bf1df193a6c4"                        # Update with the desired Amazon Machine Image (AMI) ID
+  instance_type          = lookup(var.instance_type, terraform.workspace) # Update with the desired instance type
+  key_name               = "jenkins_server"                               # Update with the name of your key pair
   subnet_id              = aws_subnet.public.id
   vpc_security_group_ids = [aws_security_group.jenkins_sg.id]
 
@@ -40,7 +40,7 @@ resource "aws_instance" "jenkins_instance" {
   }
 
   tags = {
-    Name = "${var.project}-Jenkins"
+    Name        = "${var.project}-Jenkins"
     Environment = terraform.workspace
   }
 
