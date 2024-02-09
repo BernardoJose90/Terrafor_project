@@ -28,3 +28,7 @@ variable "instance_type" {
     "production"   = "t2.micro"
   }
 }
+
+variable "vpc_region" {
+  type = string
+}
