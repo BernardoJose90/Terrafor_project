@@ -1,8 +1,8 @@
-/**/
+/*key_name               = "jenkins_server" */
 resource "aws_instance" "jenkins_instance" {
   ami                    = "ami-0b752bf1df193a6c4"                        # Update with the desired Amazon Machine Image (AMI) ID
   instance_type          = lookup(var.instance_type, terraform.workspace) # Update with the desired instance type
-  key_name               = "jenkins_server"                               # Update with the name of your key pair
+  key_name               = data.aws_key_pair.jenkins_server.key_name                              # Update with the name of your key pair
   subnet_id              = aws_subnet.public.id
   vpc_security_group_ids = [aws_security_group.jenkins_sg.id]
 
@@ -45,3 +45,7 @@ resource "aws_instance" "jenkins_instance" {
   }
 
 }
+
+  data "aws_key_pair" "jenkins_server"{
+    key_name = "jenkins_server"
+  }
