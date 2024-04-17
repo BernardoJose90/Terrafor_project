@@ -14,6 +14,6 @@ resource "aws_route" "public_igw_route" {
   gateway_id             = aws_internet_gateway.igw.id
 
   timeouts {
-    create = "5m"
+    create = "4m"
   }
 }
