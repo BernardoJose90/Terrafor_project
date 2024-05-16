@@ -21,9 +21,7 @@ variable "private_subnets" {
   default     = ["10.0.30.0/24"]
 }
 
-variable "vpc_region" {
-  type = string
-}
+
 
 variable "instance_type" {
   type = map(any)

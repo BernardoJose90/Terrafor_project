@@ -8,14 +8,19 @@ resource "aws_instance" "jenkins_instance" {
 
   user_data = <<-EOF
               #!/bin/bash
+              set -e
+
+              # Update all packages
+              sudo yum update -y
 
               # Install Java Development Kit (JDK)
-              sudo yum update
-              sudo amazon-linux-extras install java-openjdk11
+              sudo amazon-linux-extras install java-openjdk11 -y
 
-              # Install Jenkins
+              # Import Jenkins key and add Jenkins repository
               sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
               sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+              # Install Jenkins
               sudo yum install -y jenkins
 
               # Start Jenkins service
@@ -25,15 +30,12 @@ resource "aws_instance" "jenkins_instance" {
               # Wait for Jenkins to start
               sleep 60
 
-              # Install Terraform plugin
-              sudo su - jenkins -c 'java -jar /var/cache/jenkins/war/WEB-INF/jenkins-cli.jar install-plugin terraform'
-
-              # Install GitHub plugin
-              sudo su - jenkins -c 'java -jar /var/cache/jenkins/war/WEB-INF/jenkins-cli.jar install-plugin github'
+              # Install Jenkins plugins
+              sudo su - jenkins -c 'java -jar /usr/lib/jenkins/jenkins.war -s http://localhost:8080 install-plugin terraform github'
 
               # Restart Jenkins to apply changes
               sudo systemctl restart jenkins
-              EOF
+            EOF
 
   provisioner "local-exec" {
     command = "echo ${aws_instance.jenkins_instance.public_ip} > var.jenkins_instance_ip.txt"
@@ -43,9 +45,10 @@ resource "aws_instance" "jenkins_instance" {
     Name        = "${var.project}-Jenkins"
     Environment = terraform.workspace
   }
-  lifecycle {
-    ignore_changes = all
-  }
+
+ # lifecycle {
+ #      prevent_destroy = true
+ # }
 
 }
 

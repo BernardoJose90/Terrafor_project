@@ -11,6 +11,10 @@ resource "aws_vpc" "testvpc" {
   tags = {
     Name        = "${var.project}-vpc"
     Environment = terraform.workspace
+    
   }
+ # lifecycle {
+ #      prevent_destroy = true
+ # }
 
 }
