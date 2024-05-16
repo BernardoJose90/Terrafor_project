@@ -14,7 +14,7 @@ pipeline {
     stages {
             stage('TerraformInit'){
             steps {
-                dir('BernardoJose90/AWS-Terraform-Project.git'){
+                dir('BernardoJose90/Terrafor_project.git'){
                     sh "terraform init -input=false"
                     sh "echo \$PWD"
                     sh "whoami"
@@ -24,7 +24,7 @@ pipeline {
 
         stage('TerraformFormat'){
             steps {
-                dir('BrnardoJose90/AWS-Terraform-Project.git'){
+                dir('BrnardoJose90/Terrafor_project.git'){
                     sh "terraform fmt -list=true -write=false -diff=true -check=true"
                 }
             }
@@ -32,7 +32,7 @@ pipeline {
 
         stage('TerraformValidate'){
             steps {
-                dir('BernardoJose90/AWS-Terraform-Project.git'){
+                dir('BernardoJose90/Terrafor_project.git'){
                     sh "terraform validate"
                 }
     
@@ -41,7 +41,7 @@ pipeline {
 
         stage('TerraformPlan'){
             steps {
-                dir('BernardoJose90/AWS-Terraform-Project.git'){
+                dir('BernardoJose90/Terrafor_project.git'){
                     script {
                         try {
                             sh "terraform workspace new ${params.WORKSPACE}"
@@ -68,7 +68,7 @@ pipeline {
                          currentBuild.result = 'UNSTABLE'
                     }
                     if(apply){
-                        dir('BernardoJose90/AWS-Terraform-Project.git'){
+                        dir('BernardoJose90/Terrafor_project.git'){
                             unstash "terraform-plan"
                             sh 'terraform apply terraform.tfplan' 
                         }
